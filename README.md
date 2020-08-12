@@ -27,3 +27,8 @@ Implements a `Component` for a `Home` struct.
 *  Boilerplate for create(), update(), change().
     * What's the difference between update and change?
 *  view() returns HTML.  Note the inline html tags.
+
+`html!` is similar to JSX
+*  `create()` sets the model state when the component is created.
+*  `view()` is called when componet is rendered.
+
