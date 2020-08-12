@@ -32,3 +32,15 @@ Implements a `Component` for a `Home` struct.
 *  `create()` sets the model state when the component is created.
 *  `view()` is called when componet is rendered.
 
+
+### Adding a Cart (interactions)
+*  We `clone` the Product when it is added to the cart.
+*  We create a `link` that allows us to register callbacks, which can trigger the `update()` lifecycle.
+*  `update()` is where the `State` is changed and side-effects (i.e., network requests) are called.
+    *  All of the possible actions are defined in the `Message`.
+    *  Returning `true` re-renders the component.
+
+* I'm not sure what `move` is doing in this context:
+```
+<button onclick=self.link.callback(move |_| Msg::AddToCart(product_id))>
+```
