@@ -69,4 +69,11 @@ Finally, we clean up.
 
 ### Reusable Components
 
+*  In Components, often use _ if there is a feature the component won't implement, like messages or links.
+*  Properties (`Props`) are the input to the Component.  This is both the data and any callback.
+*  Dumb components don't hold their own state, but call back to the parent component to update it's state.
+    * We use either the `emit` or `reform` methods on the callback.
+    * `emit` just calls the callback function.
+    * `reform`  seems to change the type.
+
 
