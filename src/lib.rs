@@ -1,3 +1,5 @@
+mod api;
+mod types;
 mod pages;
 
 use pages::Home;
