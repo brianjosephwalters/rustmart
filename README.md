@@ -20,3 +20,10 @@ Using `cargo-make` there are two tasks:
 Component re-rendering occurs on:
 *  Parent component is re-rendered
 *  `Props`, `State`, or `AppState` changes.
+
+### Building a Home Page
+Implements a `Component` for a `Home` struct.
+*  Component has Messages and Properties
+*  Boilerplate for create(), update(), change().
+    * What's the difference between update and change?
+*  view() returns HTML.  Note the inline html tags.
