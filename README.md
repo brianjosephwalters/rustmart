@@ -76,4 +76,55 @@ Finally, we clean up.
     * `emit` just calls the callback function.
     * `reform`  seems to change the type.
 
+### Styling
+Yew allows class attributes and inline styles.
+Pretty straight forward.
+*  Also learned that there can only be one root html element in `html!` macro.
+
+### Routing
+SPAs mimic multi-page websites using routers.  We'll use the yew-router.  It handles query parameters, path variables, etc.  And we'll build a new homepage, since the top-level index.html page will now need a router outlet, into which other components can be loaded.  In our case, it's really just a "routing layer" above the Home component.
+
+*  Build a Route stuct containing Components.  Annotate the Component with its route `#[to = "/"]`
+*  In the App component, create initial renderings for the Routes configured in `route.rs`. Map each of these routes to the html! macro that will render it.
+```
+let render = Router::render(|switch: Route| match switch {
+    Route::HomePage => html! {<Home/>},
+});
+```
+*  In the html! macro for the App, use the Router component to build out the component.  Normally, the Router component would be inside the portion of the page that changes, while elements like headers etcs, are around it.
+
+### Detail pages
+We'll want to navigate to a details page based on the product's id.  We use yew_router's RouterAnchor tag to supply the routing configuration element for the html! macro.  
+*  Note the use of `classes` instead of `class`.
+
+We need to create a data route for particular products in the API.  
+*  For now, this will just pull json out of static files.
+
+Building out the Product pages is similar to Home:
+*  The Props is the product id, corresponding to the route.
+*  The State is similar to before: GetProduct, error, onload
+*  The Task will store the api call.
+*  Link is used to make the api call. 
+
+
+### State Management
+We need to move the State held in the Home component to a parent location so that it can be updated by the Details component.  We'll also create a top-level nav bar that can hold the current cart total.  This involves a bit of refactoring.
+
+State sharing stragies:
+*  Hoist the state to a parent component shared by both
+    *  Results in "prop drilling" and prevents components being used in contexts outside of that heirarchy - why are they separate components, then?  Seems like bad design.
+
+*  Move state to a global app state.
+    *  Recommend using Agents for pub/sub.
+    *  No good solution from Yew right now.
+
+*  Use of the `change()` lifecycle method in navbar
+    -  When the props sent from the parent changes, it needs to be changed here as well.
+*  Use of both `update()` and `change()` in atc_button
+    -  The button needs to receive both the callback function and the product to pass to the callback
+    -  Really just a component to create button, but we can use it in multiple places.
+    -  Product Card usage is an example of a component using a component (both dumb components), passing the properties that the parent component received from *its* parent.
+        *  Note that both the data *and* the callback are clones.
+    -  Product Details usage is a smart component using the dumb component.
+
 
