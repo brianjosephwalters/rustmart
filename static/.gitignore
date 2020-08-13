@@ -1,0 +1,5 @@
+*.html
+*.md
+*.js
+*wasm*
+package.json
